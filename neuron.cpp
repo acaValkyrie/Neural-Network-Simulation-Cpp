@@ -69,6 +69,8 @@ void neuron::set_spike(){
   return;
 }
 
+#include <stdio.h>
+
 void neuron::compute_process(){
   // 自分に接続している相手のスパイク確認
   // input_syn = Σ spike * weight を計算
@@ -84,6 +86,8 @@ void neuron::compute_process(){
 
   // spike チェック
   set_spike();
+
+  printf("%f, ", v);
 }
 
 void neuron::set_dt(double _dt){
