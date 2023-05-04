@@ -5,7 +5,7 @@
 
 class neural_network{
   static const int num_neuron = 8;
-  neuron neurons[num_neuron];
+  neuron neurons[num_neuron] = {0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01};
   
   public:
     void init_neurons(){
