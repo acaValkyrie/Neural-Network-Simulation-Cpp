@@ -7,8 +7,8 @@ class neuron{
     const double e_leak = -65.0;
     const double r_ext = 1;
     const double i_ext = 20.0;
-  public: const double tau;
-  private:  
+    const double tau;
+    
     bool is_spike;
     // receive spike
     const double r_syn = 1;

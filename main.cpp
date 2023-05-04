@@ -5,7 +5,7 @@
 
 class neural_network{
   static const int num_neuron = 8;
-  neuron neurons[num_neuron] = {neuron(0.01)};
+  neuron neurons[num_neuron];
   
   public:
     void init_neurons(){
@@ -25,6 +25,4 @@ class neural_network{
 };
 
 int main(void){
-  neuron neurons[2] = {neuron(0.01)};
-  printf("%f\n", neurons[0].tau);
 }
