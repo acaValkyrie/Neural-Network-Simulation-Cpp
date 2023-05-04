@@ -1,10 +1,22 @@
 #include "neuron.h"
+#include <math.h>
 
-double neuron::dvdt(double _v, double _t){
+double neuron::dvdt(double _v){
   return ( -( _v - e_leak ) + r_ext*i_ext + r_syn*i_syn - r_adp*i_adp ) / tau;
 }
+neuron::neuron(){
+  // set param
+  tau = 0.01;
 
-neuron::neuron(double _tau = 0.01){
+  // init variables
+  v = e_leak;
+  is_spike = false;
+  i_syn = 0.0;
+  input_syn = 0.0;
+  i_adp = 0.0;
+}
+
+neuron::neuron(double _tau){
   // set param
   tau = _tau;
 
@@ -25,6 +37,10 @@ void neuron::set_input_syn(double _input){
   input_syn = _input;
 }
 
+void neuron::add_input_syn(double _input){
+  input_syn += _input;
+}
+
 void neuron::calc_i_syn(){
   i_syn = i_syn*exp(-dt/tau) + input_syn;
 }
@@ -34,11 +50,11 @@ void neuron::calc_i_adp(){
 }
 
 void neuron::compute_v_runge_kutta(){
-  v_current = v;
-  k1 = dt*dvdt(v_current         );
-  k2 = dt*dvdt(v_current + 0.5*k1);
-  k3 = dt*dvdt(v_current + 0.5*k2);
-  k4 = dt*dvdt(v_current +     k3);
+  double v_current = v;
+  double k1 = dt*dvdt(v_current         );
+  double k2 = dt*dvdt(v_current + 0.5*k1);
+  double k3 = dt*dvdt(v_current + 0.5*k2);
+  double k4 = dt*dvdt(v_current +     k3);
   v = v_current + (k1 + 2*k2 + 2*k3 + k4)/6.0;
 }
 

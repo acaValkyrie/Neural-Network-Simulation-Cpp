@@ -4,10 +4,11 @@
 class neuron{
   private:
     double v;
+    const double v_spike_threshold = -55.0;
     const double e_leak = -65.0;
     const double r_ext = 1;
     const double i_ext = 20.0;
-    const double tau;
+    double tau;
     
     bool is_spike;
     // receive spike
@@ -18,12 +19,14 @@ class neuron{
     const double r_adp = 0.5;
     double i_adp;
 
-    double dvdt(double _v, double _t);
+    double dvdt(double _v);
 
   public:
+    neuron();
     neuron(double _tau);
     bool get_spike();
     void set_input_syn(double _input);
+    void add_input_syn(double _input);
 
   private:
     void calc_i_syn();
@@ -34,8 +37,10 @@ class neuron{
   public:
     void compute_process();
 
-  private: double dt;
-  public:  void set_dt(double _dt);
+  private: 
+    double dt;
+  public:
+    void set_dt(double _dt);
 };
 
 #endif// NEURON_H_
